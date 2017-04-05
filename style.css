@@ -59,23 +59,35 @@ body {
 	color: #888;
 }
 
-#box button.answer {
+#box button {
 	text-transform: uppercase;
 	letter-spacing: 0.8px;
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 	width: 100%;
-	background-color: #68cf7c;
 	border: 0;
 	border-radius: 4px;
 	padding: 15px;
-	color: #FFF;
 	box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 	transition: all .15s ease;
 	margin-top: 20px;
 	outline: none;
 }
+#box button:hover {
+	transform: translateY(-2px);
+	cursor: pointer;
+}
+#box button.answer {
+	background-color: #68cf7c;
+	color: #FFF;
+}
 #box button.answer:hover {
 	background-color: #76e48b;
-	cursor: pointer;
-	transform: translateY(-2px);
+}
+
+#box button.cancel {
+	background-color: #bfbfbf;
+	color: #000;
+}
+#box button.cancel:hover {
+	background-color: #cfcccc;
 }

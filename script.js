@@ -15,13 +15,22 @@ var questions = [{
 	ask: "Do you worry about things?",
 	answers: [
 		'You\'re an ass',
-		'No'
+		'No',
+			'You\'re an ass',
+			'No',
+				'You\'re an ass',
+				'No',
+					'You\'re an ass',
+					'No',
+						'You\'re an ass',
+						'No',
 	]
 }, {
 	ask: "I don't know",
 	answers: [
 		'You\'re a faggot',
-		'No'
+		'No',
+		'Third Question'
 	]
 }];
 
@@ -68,6 +77,9 @@ var quiz = new function() {
 			for(var i = 0; i < questionToDisplay.answers.length; i++) {
 				answers.innerHTML += '<button class="answer" onClick="quiz.displayQuestion(' + (index+1) + ')">' + questionToDisplay.answers[i] + '</button>'
 			}
+		}
+		if(questions.length == (index + 1)) {
+			answers.innerHTML += '<button class="reset" onClick="quiz.displayQuestion(0)">Reset Quiz</button>'
 		}
 	}
 }
