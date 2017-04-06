@@ -16,7 +16,9 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 }
 
-/* Utility Classes */
+/* Flexbox Utility Classes */
+/* This doesn't work on all browsers, but still
+   has good support */
 
 .flexbox {
 	height: 100%;
@@ -38,13 +40,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-/* Style */
+/**
+ * Background
+ */
 body {
 	background: #00c6ff;
 	background: -webkit-linear-gradient(to bottom, #0072ff, #00c6ff);
 	background: linear-gradient(to bottom, #0072ff, #00c6ff);
 }
 
+/**
+ * Box
+ */
 #box {
 	display:block;
 	max-width: 500px;
@@ -61,6 +68,9 @@ body {
 	font-size: 20px;
 }
 
+/**
+ * Button
+ */
 #box button {
 	text-transform: uppercase;
 	letter-spacing: 0.8px;
@@ -75,41 +85,30 @@ body {
 	outline: none;
 	background-color: #d6d6d6;
 }
-#box button:hover {
+#box button:hover { // Hover Styling
 	background: #c7c7c7;
-}
-#box button:hover {
 	transform: translateY(-2px);
 	cursor: pointer;
 }
-#box button:nth-child(1) {
-	background-color: #68cf7c;
-	color: #FFF;
-}
-#box button:nth-child(1):hover {
-	background-color: #53b566;
-}
-#box button:nth-child(2) {
-	background-color: #57b8b8;
-	color: #FFF;
-}
-#box button:nth-child(2):hover {
-	background-color: #51cbcb;
-}
 
-#box button:nth-child(3) {
+/**
+ * Answer Button
+ */
+#box button.answer {
 	background-color: #6797cf;
 	color: #FFF;
 }
-#box button:nth-child(3):hover {
-	background-color: #629de2;
+#box button.answer:hover {
+	background-color: #63a1eb;
 }
 
-
-#box button.reset:nth-child(1) {
+/**
+ * Reset Button
+ */
+#box button.reset {
 	background-color: #bfbfbf;
 	color: #000;
 }
-#box button.reset:nth-child(1):hover {
+#box button.reset:hover {
 	background-color: #cfcccc;
 }

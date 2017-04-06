@@ -206,25 +206,54 @@ var quiz = new function() {
      * @param  {Integer} index
      */
     this.displayQuestion = function(index) {
-        /* Display the next question */
+
+        // Set the next question in a variable
         var questionToDisplay = questions[index];
+
+		// If the question exists,
+		// then get the question data
         if (questionToDisplay != null) {
+			// Set the question number and heading
             heading.innerHTML = "Question " + (index + 1);
+
+			// Set the question text
             content.innerHTML = questionToDisplay.ask;
+
+			// Clear the answers in preparation for
+			// inserting answer buttons
             answers.innerHTML = ""
+
+			// For each possible answer loop
             for (var i = 0; i < questionToDisplay.answers.length; i++) {
+				// Make a button for each answer
+				// Each button has an onClick event to
+				// capture the answer index
                 answers.innerHTML += '<button class="answer" onClick="quiz.nextQuestion(' + i + ', ' + (index + 1) + ')">' + questionToDisplay.answers[i].text + '</button>'
             }
+		// If there is no next question that exists
+		// Let's set the answers
         } else {
+			// Sort the accumulated attributes
+			// This is done by converting to array, and sorting by subtraction
+			// b - a to get descending
+			// a - b to get ascending
             var attrSorted = Object.keys(attributes).sort(function(a, b) {
                 return this.attributes[b] - this.attributes[a]
             })
 
+			// Get the top attribute and attribute description from
+			// the
             var personality = attributesDescriptions[attrSorted[0]][0];
             var description = attributesDescriptions[attrSorted[0]][1];
 
+			// Set the heading content
             heading.innerHTML = "Answer";
+
+			// Set the paragraph content
             content.innerHTML = "After taking this quiz, your look pretty " + personality + ". " + description + " But what do I know, I'm just a quiz";
+
+			// Set a reset button to reset the quiz
+			// Done with a "resetQuiz" function
             answers.innerHTML = '<button class="reset" onClick="quiz.resetQuiz()">Reset Quiz</button>'
         }
     }
@@ -233,7 +262,6 @@ var quiz = new function() {
 	 * Save Question Function
 	 * @param  {integer} qi    Answer Index
 	 * @param  {integer} index Index of Question
-	 * @return {[type]}       [description]
 	 */
     this.saveQuestion = function(qi, index) {
         /* The question in question */
@@ -246,6 +274,11 @@ var quiz = new function() {
         console.log(attributes)
     }
 
+	/**
+	 * Reset Quiz function
+	 * Exists to reset variables and set the quiz
+	 * question to the first one
+	 */
     this.resetQuiz = function() {
         for (var attr in attributes) {
             attributes[attr] = 0;
@@ -262,7 +295,6 @@ var quiz = new function() {
  * The initalisation function
  * Starts the Quiz
  * @type {function}
- * @return {[type]} [description]
  */
 function init() {
     // Set Dom Variables
@@ -276,6 +308,7 @@ function init() {
  * Set all variables to their element ID
  */
 function querySetDOMElements() {
+	// querySelector is like getElementById, but more like jQuery.
     box = document.querySelector("#box");
     heading = box.querySelector("h1");
     content = box.querySelector("p");
