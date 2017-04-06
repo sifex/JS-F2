@@ -192,6 +192,7 @@ var quiz = new function() {
      * @param  {int} index Index of next question
      */
     this.nextQuestion = function(qi, index) {
+
         /* Save question answer */
         /* Index Minus One is the current question, as index
            specifies the next question */
@@ -213,6 +214,7 @@ var quiz = new function() {
 		// If the question exists,
 		// then get the question data
         if (questionToDisplay != null) {
+
 			// Set the question number and heading
             heading.innerHTML = "Question " + (index + 1);
 
@@ -233,6 +235,7 @@ var quiz = new function() {
 		// If there is no next question that exists
 		// Let's set the answers
         } else {
+
 			// Sort the accumulated attributes
 			// This is done by converting to array, and sorting by subtraction
 			// b - a to get descending
@@ -264,14 +267,31 @@ var quiz = new function() {
 	 * @param  {integer} index Index of Question
 	 */
     this.saveQuestion = function(qi, index) {
+
         /* The question in question */
         /* Ha, Ha. See what I did there? */
         var qiq = this.questions[index];
+
+		// The answer is the index of the clicked button
         var answer = qiq.answers[qi];
+
+		//
+		// This is probably the most complex loop in the whole script
+		// For each attribute in the answer's attribute, get the name
+		// of the attribute, go to that same index in the global
+		// attribute variable, and add the value of the answer's
+		// attribute value to that of the global variable.
+		//
+		// So when		answer.attribute = { happiness: -2 }
+		// and 			attributes = { happiness: 3 }
+		//
+		// add one to the other so:
+		//
+		// 				attributes = { happiness: 1 }
+		//
         for (var attr in answer.attributes) {
             attributes[attr] += answer.attributes[attr];
         }
-        console.log(attributes)
     }
 
 	/**
@@ -280,9 +300,13 @@ var quiz = new function() {
 	 * question to the first one
 	 */
     this.resetQuiz = function() {
+
+		// For each attribute
         for (var attr in attributes) {
+			// Reset the attribute to zero
             attributes[attr] = 0;
         }
+		// Display the first question
         this.displayQuestion(0);
     }
 }
@@ -297,8 +321,11 @@ var quiz = new function() {
  * @type {function}
  */
 function init() {
+
     // Set Dom Variables
     querySetDOMElements();
+
+	// Display the first question
     quiz.displayQuestion(0);
 }
 
