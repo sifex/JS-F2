@@ -1,38 +1,39 @@
 /**
- * u3162501
- * Personality Quiz
- */
+* u3162501
+* Personality Quiz
+* JS&F Semester 1 / 2017
+*/
 
 
-
+// Questions
 var questions = [{
-	ask: "Can you fucking not?",
+	ask: "Would you consider yourself social?",
 	answers: [
-		'Yes',
-		'No'
-	]
-}, {
-	ask: "Do you worry about things?",
-	answers: [
-		'You\'re an ass',
-		'No',
-			'You\'re an ass',
-			'No',
-				'You\'re an ass',
-				'No',
-					'You\'re an ass',
-					'No',
-						'You\'re an ass',
-						'No',
-	]
-}, {
-	ask: "I don't know",
-	answers: [
-		'You\'re a faggot',
-		'No',
-		'Third Question'
-	]
+		{
+			text: 'Yes',
+			attributes: {
+				happiness: 2,
+				selfish: 0,
+				lonelyness: -1,
+			}
+		},
+		{
+			text: 'No',
+			attributes: {
+				happiness: -1,
+				lonelyness: 1,
+			}
+		}
+	],
 }];
+
+var attributes = {
+	happiness: 0,
+	lonelyness: 0,
+	selfish: 0,
+	perfectionist: 0,
+	optimist: 0
+}
 
 var answers = [{
 
@@ -40,8 +41,8 @@ var answers = [{
 
 
 /**
- * Box Variables
- */
+* Box Variables
+*/
 var box;
 var heading;
 var content;
@@ -49,38 +50,78 @@ var answers;
 
 
 /**
- * Question Item
- * Defines each individual quiz
- * @type {function}
- */
+* Question Item
+* Class of each individual question
+* @type {function}
+*/
 var question = new function() {
-    this.content = "";
+	this.content = "";
 	this.options = [{}];
 
 	return this;
 }
 
 /**
- * Quiz Item
- * Quizes contain questions and allows for a more OOP based quiz
- * @type {function}
- */
+* Quiz Item
+* Quizes contain questions and allows for a more OOP based quiz
+* @type {function}
+*/
 var quiz = new function() {
 	this.questions = questions;
 
+	/**
+	 * nextQuestion Function
+	 * The onClick Handler for each answer
+	 * @param  {int} qi    Selected Answer index
+	 * @param  {int} index Index of next question
+	 */
+	this.nextQuestion = function(qi, index) {
+		/* Save question answer */
+		/* Index Minus One is the current question, as index
+		   specifies the next question */
+		this.saveQuestion(qi, index - 1)
+
+		/* Display the next question */
+		this.displayQuestion(index)
+	}
+
+	/**
+	 * Display Question Function
+	 * @param  {Integer} index
+	 */
 	this.displayQuestion = function(index) {
+		/* Display the next question */
 		var questionToDisplay = questions[index];
 		if(questionToDisplay != null) {
 			heading.innerHTML = "Question " + (index + 1);
 			content.innerHTML = questionToDisplay.ask;
 			answers.innerHTML = ""
 			for(var i = 0; i < questionToDisplay.answers.length; i++) {
-				answers.innerHTML += '<button class="answer" onClick="quiz.displayQuestion(' + (index+1) + ')">' + questionToDisplay.answers[i] + '</button>'
+				answers.innerHTML += '<button class="answer" onClick="quiz.nextQuestion(' + i + ', ' + (index+1) + ')">' + questionToDisplay.answers[i].text + '</button>'
 			}
+		} else {
+			heading.innerHTML = "Answer";
+			content.innerHTML = "Answer"
+			answers.innerHTML = '<button class="reset" onClick="quiz.resetQuiz()">Reset Quiz</button>'
 		}
-		if(questions.length == (index + 1)) {
-			answers.innerHTML += '<button class="reset" onClick="quiz.displayQuestion(0)">Reset Quiz</button>'
+	}
+
+	this.saveQuestion = function(qi, index) {
+		/* The question in question */
+		/* Ha, Ha. See what I did there? */
+		var qiq = this.questions[index];
+		var answer = qiq.answers[qi];
+		for(var attr in answer.attributes) {
+			attributes[attr] += answer.attributes[attr];
 		}
+		console.log(attributes)
+	}
+
+	this.resetQuiz = function() {
+		for(var attr in attributes) {
+			attributes[attr] = 0;
+		}
+		this.displayQuestion(0);
 	}
 }
 
@@ -89,11 +130,11 @@ var quiz = new function() {
 
 
 /**
- * The initalisation function
- * Starts the Quiz
- * @type {function}
- * @return {[type]} [description]
- */
+* The initalisation function
+* Starts the Quiz
+* @type {function}
+* @return {[type]} [description]
+*/
 function init() {
 	// Set Dom Variables
 	querySetDOMElements();
@@ -103,8 +144,8 @@ function init() {
 
 
 /**
- * Set all variables to their element ID
- */
+* Set all variables to their element ID
+*/
 function querySetDOMElements() {
 	box = document.querySelector("#box");
 	heading = box.querySelector("h1");
