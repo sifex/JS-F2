@@ -21,7 +21,6 @@ h1, h2, h3, h4, h5, h6 {
 .flexbox {
 	height: 100%;
 	display: flex;
-	overflow-y: scroll;
 	align-items: center;
 	justify-content: center;
 }
@@ -59,6 +58,7 @@ body {
 
 #box p {
 	color: #888;
+	font-size: 20px;
 }
 
 #box button {
@@ -73,23 +73,43 @@ body {
 	transition: all .15s ease;
 	margin-top: 20px;
 	outline: none;
+	background-color: #d6d6d6;
+}
+#box button:hover {
+	background: #c7c7c7;
 }
 #box button:hover {
 	transform: translateY(-2px);
 	cursor: pointer;
 }
-#box button.answer {
+#box button:nth-child(1) {
 	background-color: #68cf7c;
 	color: #FFF;
 }
-#box button.answer:hover {
-	background-color: #76e48b;
+#box button:nth-child(1):hover {
+	background-color: #53b566;
+}
+#box button:nth-child(2) {
+	background-color: #57b8b8;
+	color: #FFF;
+}
+#box button:nth-child(2):hover {
+	background-color: #51cbcb;
 }
 
-#box button.cancel {
+#box button:nth-child(3) {
+	background-color: #6797cf;
+	color: #FFF;
+}
+#box button:nth-child(3):hover {
+	background-color: #629de2;
+}
+
+
+#box button.reset:nth-child(1) {
 	background-color: #bfbfbf;
 	color: #000;
 }
-#box button.cancel:hover {
+#box button.reset:nth-child(1):hover {
 	background-color: #cfcccc;
 }
