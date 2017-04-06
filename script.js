@@ -211,102 +211,102 @@ var quiz = new function() {
         // Set the next question in a variable
         var questionToDisplay = questions[index];
 
-		// If the question exists,
-		// then get the question data
+        // If the question exists,
+        // then get the question data
         if (questionToDisplay != null) {
 
-			// Set the question number and heading
+            // Set the question number and heading
             heading.innerHTML = "Question " + (index + 1);
 
-			// Set the question text
+            // Set the question text
             content.innerHTML = questionToDisplay.ask;
 
-			// Clear the answers in preparation for
-			// inserting answer buttons
+            // Clear the answers in preparation for
+            // inserting answer buttons
             answers.innerHTML = ""
 
-			// For each possible answer loop
+            // For each possible answer loop
             for (var i = 0; i < questionToDisplay.answers.length; i++) {
-				// Make a button for each answer
-				// Each button has an onClick event to
-				// capture the answer index
+                // Make a button for each answer
+                // Each button has an onClick event to
+                // capture the answer index
                 answers.innerHTML += '<button class="answer" onClick="quiz.nextQuestion(' + i + ', ' + (index + 1) + ')">' + questionToDisplay.answers[i].text + '</button>'
             }
-		// If there is no next question that exists
-		// Let's set the answers
+            // If there is no next question that exists
+            // Let's set the answers
         } else {
 
-			// Sort the accumulated attributes
-			// This is done by converting to array, and sorting by subtraction
-			// b - a to get descending
-			// a - b to get ascending
+            // Sort the accumulated attributes
+            // This is done by converting to array, and sorting by subtraction
+            // b - a to get descending
+            // a - b to get ascending
             var attrSorted = Object.keys(attributes).sort(function(a, b) {
                 return this.attributes[b] - this.attributes[a]
             })
 
-			// Get the top attribute and attribute description from
-			// the
+            // Get the top attribute and attribute description from
+            // the
             var personality = attributesDescriptions[attrSorted[0]][0];
             var description = attributesDescriptions[attrSorted[0]][1];
 
-			// Set the heading content
+            // Set the heading content
             heading.innerHTML = "Answer";
 
-			// Set the paragraph content
+            // Set the paragraph content
             content.innerHTML = "After taking this quiz, your look pretty " + personality + ". " + description + " But what do I know, I'm just a quiz";
 
-			// Set a reset button to reset the quiz
-			// Done with a "resetQuiz" function
+            // Set a reset button to reset the quiz
+            // Done with a "resetQuiz" function
             answers.innerHTML = '<button class="reset" onClick="quiz.resetQuiz()">Reset Quiz</button>'
         }
     }
 
-	/**
-	 * Save Question Function
-	 * @param  {integer} qi    Answer Index
-	 * @param  {integer} index Index of Question
-	 */
+    /**
+     * Save Question Function
+     * @param  {integer} qi    Answer Index
+     * @param  {integer} index Index of Question
+     */
     this.saveQuestion = function(qi, index) {
 
         /* The question in question */
         /* Ha, Ha. See what I did there? */
         var qiq = this.questions[index];
 
-		// The answer is the index of the clicked button
+        // The answer is the index of the clicked button
         var answer = qiq.answers[qi];
 
-		//
-		// This is probably the most complex loop in the whole script
-		// For each attribute in the answer's attribute, get the name
-		// of the attribute, go to that same index in the global
-		// attribute variable, and add the value of the answer's
-		// attribute value to that of the global variable.
-		//
-		// So when		answer.attribute = { happiness: -2 }
-		// and 			attributes = { happiness: 3 }
-		//
-		// add one to the other so:
-		//
-		// 				attributes = { happiness: 1 }
-		//
+        //
+        // This is probably the most complex loop in the whole script
+        // For each attribute in the answer's attribute, get the name
+        // of the attribute, go to that same index in the global
+        // attribute variable, and add the value of the answer's
+        // attribute value to that of the global variable.
+        //
+        // So when		answer.attribute = { happiness: -2 }
+        // and 			attributes = { happiness: 3 }
+        //
+        // add one to the other so:
+        //
+        // 				attributes = { happiness: 1 }
+        //
         for (var attr in answer.attributes) {
             attributes[attr] += answer.attributes[attr];
         }
     }
 
-	/**
-	 * Reset Quiz function
-	 * Exists to reset variables and set the quiz
-	 * question to the first one
-	 */
+    /**
+     * Reset Quiz function
+     * Exists to reset variables and set the quiz
+     * question to the first one
+     */
     this.resetQuiz = function() {
 
-		// For each attribute
+        // For each attribute
         for (var attr in attributes) {
-			// Reset the attribute to zero
+            // Reset the attribute to zero
             attributes[attr] = 0;
         }
-		// Display the first question
+        // Display the first question
         this.displayQuestion(0);
     }
 }
@@ -325,7 +325,7 @@ function init() {
     // Set Dom Variables
     querySetDOMElements();
 
-	// Display the first question
+    // Display the first question
     quiz.displayQuestion(0);
 }
 
@@ -335,7 +335,8 @@ function init() {
  * Set all variables to their element ID
  */
 function querySetDOMElements() {
-	// querySelector is like getElementById, but more like jQuery.
+
+    // querySelector is like getElementById, but more like jQuery.
     box = document.querySelector("#box");
     heading = box.querySelector("h1");
     content = box.querySelector("p");
